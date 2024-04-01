@@ -1,0 +1,11 @@
+resource "helm_release" "{{.ChartName}}" {
+  name             = "{{.ChartName}}"
+  repository       = "{{.ChartUrl}}"
+  chart            = "{{.ChartName}}"
+  namespace        = ""
+  create_namespace = true
+
+  values = [
+    ${path.cwd}
+  ]
+}
