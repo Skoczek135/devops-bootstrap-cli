@@ -6,6 +6,8 @@ package kubernetes
 import (
 	"context"
 	"fmt"
+	"os"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 	corev1 "k8s.io/api/core/v1"
@@ -36,7 +38,7 @@ var debugCmd = &cobra.Command{
 				Containers: []corev1.Container{
 					{
 						Name:    "debug",
-						Image:   "busybox",
+						Image:   "ubuntu",
 						Command: []string{"sleep", "3600"},
 						SecurityContext: &corev1.SecurityContext{
 							Privileged: func(b bool) *bool { return &b }(true),
@@ -46,17 +48,41 @@ var debugCmd = &cobra.Command{
 			},
 		}
 
-		successMessage := fmt.Sprintf("You can now exec to the debug pod by running:\nkubectl -n %s exec -it debug bash", ns)
-
 		err = c.Create(context.Background(), pod)
-		if errors.IsAlreadyExists(err) {
-			fmt.Println(successMessage)
+		if err != nil && !errors.IsAlreadyExists(err) {
 			return
 		}
-		if err != nil {
-			panic(err)
-		}
 
+		wait := make(chan bool)
+		go func() {
+			pod := &corev1.Pod{}
+			for {
+				c.Get(context.Background(), client.ObjectKey{
+					Name:      "debug",
+					Namespace: ns,
+				}, pod)
+				if pod.Status.Phase == corev1.PodRunning {
+					wait <- true
+				}
+			}
+		}()
+
+		<-wait
+
+		command := fmt.Sprintf("kubectl -n %s exec -it %s bash", ns, "debug")
+		subProcess := exec.Command("bash", "-c", command)
+		subProcess.Stdin = os.Stdin
+		subProcess.Stdout = os.Stdout
+		subProcess.Stderr = os.Stderr
+		_ = subProcess.Run()
+
+		defer func() {
+			err = c.Delete(context.Background(), pod)
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println("Debug pod deleted successfully")
+		}()
 	},
 }
 
