@@ -15,5 +15,5 @@ var KubernetesCmd = &cobra.Command{
 }
 
 func init() {
-	KubernetesCmd.AddCommand(debugCmd)
+	KubernetesCmd.AddCommand(debugCmd, sshNodeCmd)
 }

@@ -4,29 +4,46 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package kubernetes
 
 import (
+	"bytes"
+	"fmt"
 	"os"
+	"os/exec"
+	"strings"
 
 	"github.com/spf13/cobra"
-
-	"devops-bootstrap/cmd/terraform"
 )
 
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "devops-bootstrap",
+// sshNode uses kubectl node-shell to ssh into a node
+var sshNodeCmd = &cobra.Command{
+	Use:   "ssh",
 	Short: "DevOps Bootstrap is a CLI tool to bootstrap multiple DevOps environments of every day usage",
+	Run: func(cmd *cobra.Command, args []string) {
+		command := "kubectl get nodes | tail +2 | fzf"
+		subProcess := exec.Command("bash", "-c", command)
+		var out bytes.Buffer
+		subProcess.Stderr = os.Stderr
+		subProcess.Stdout = &out
+		if err := subProcess.Run(); err != nil {
+			panic(err)
+		}
+
+		nodeOutput := out.String()
+		nodeName := strings.Split(nodeOutput, " ")[0]
+
+		fmt.Printf("Connecting to node %s\n", nodeName)
+
+		command = fmt.Sprintf("kubectl node-shell %s", nodeName)
+		fmt.Println(command)
+		subProcess = exec.Command("bash", "-c", command)
+		subProcess.Stdin = os.Stdin
+		subProcess.Stdout = os.Stdout
+		subProcess.Stderr = os.Stderr
+		err := subProcess.Run()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
-}
-
-func init() {
-	rootCmd.AddCommand(terraform.TerraformCmd)
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
+func init() {}
