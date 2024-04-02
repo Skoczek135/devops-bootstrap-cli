@@ -26,12 +26,13 @@ var (
 	//go:embed resources/helm_release.gotmpl
 	helmReleaseTemplate string
 
-	tmpDir, _ = os.MkdirTemp(".", "helm-release")
+	tmpDir string
 
 	helmCmd = &cobra.Command{
 		Use:   "helm",
 		Short: "Subcommand for adding helm releases",
 		Run: func(cmd *cobra.Command, args []string) {
+			tmpDir, _ = os.MkdirTemp(".", "helm-release")
 			cc := ChartConfig{
 				ChartUrl:     args[0],
 				ChartName:    args[1],

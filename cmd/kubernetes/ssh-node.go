@@ -1,14 +1,13 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 */
-package cmd
+package kubernetes
 
 import (
 	"os"
 
 	"github.com/spf13/cobra"
 
-	"devops-bootstrap/cmd/kubernetes"
 	"devops-bootstrap/cmd/terraform"
 )
 
@@ -28,6 +27,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(terraform.TerraformCmd, kubernetes.KubernetesCmd)
+	rootCmd.AddCommand(terraform.TerraformCmd)
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
