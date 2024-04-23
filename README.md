@@ -16,14 +16,14 @@ docli --help
 
 ## Features
 ### Kubernetes
-[x] Deploying debug pod
-[x] SSHing into K8S node via node-shell 
-[x] Bash Exec into the pod using not full name but its prefix
+    [x] Deploying debug pod
+    [x] SSHing into K8S node via node-shell 
+    [x] Bash Exec into the pod using not full name but its prefix
 
 ### Terraform
-[x] Adding terraform providers (aws, helm, kubernetes)
-[x] Adding helm release and default values.yaml is being saved in the same directory
-[x] Adding terraform module which pulls the module from the source and put default values along with a description.
-[x] Bootstraping terraform workspace
-[x] Bootstraping terraform module
+    [x] Adding terraform providers (aws, helm, kubernetes)
+    [x] Adding helm release and default values.yaml is being saved in the same directory
+    [x] Adding terraform module which pulls the module from the source and put default values along with a description.
+    [x] Bootstraping terraform workspace
+    [x] Bootstraping terraform module
 
