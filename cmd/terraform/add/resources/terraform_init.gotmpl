@@ -1,0 +1,10 @@
+module "template" {
+  source = "{{.Url}}"
+  {{if .Version}}
+  version = "{{.Version}}"
+  {{end}}
+
+  {{range .Variables}}
+  {{.Name}} = {{.DefaultValue}}   # {{.Description}}
+  {{end}}
+}

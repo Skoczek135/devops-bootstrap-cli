@@ -9,7 +9,7 @@ import (
 	"devops-bootstrap/cmd/terraform/add/provider"
 )
 
-var commands = []*cobra.Command{provider.ProviderCmd, helmCmd}
+var commands = []*cobra.Command{provider.ProviderCmd, helmCmd, moduleCmd}
 
 // TerraformCmd represents the terraform command
 var AddCmd = &cobra.Command{
