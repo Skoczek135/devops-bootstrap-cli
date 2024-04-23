@@ -22,7 +22,7 @@ var ns string
 // debugCmd deploys a debug pod to the Kubernetes cluster
 var debugCmd = &cobra.Command{
 	Use:   "debug",
-	Short: "Deploys a lightweight debug pod to the Kubernetes cluster",
+	Short: "Deploys a nicolaka/netshoot docker container to the Kubernetes cluster. It contains all networking tools such as ifconfig, ip, and tcpdump.",
 	Run: func(cmd *cobra.Command, args []string) {
 		c, err := client.New(config.GetConfigOrDie(), client.Options{})
 		if err != nil {

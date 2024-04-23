@@ -33,6 +33,12 @@ var (
 var workspaceCmd = &cobra.Command{
 	Use:   "workspace",
 	Short: "Initializes a terraform project",
+	Long: "Creates a terraform project with the following structure:\n" +
+		"providers.tf\n" +
+		"variables.tf\n" +
+		"backend.tf\n" +
+		"main.tf\n" +
+		"outputs.tf\n",
 	Run: func(cmd *cobra.Command, args []string) {
 		for fileName, template := range templatesMap {
 			file, err := createFile(fileName)

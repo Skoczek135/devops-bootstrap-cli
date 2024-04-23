@@ -16,7 +16,8 @@ import (
 // sshNode uses kubectl node-shell to ssh into a node
 var sshNodeCmd = &cobra.Command{
 	Use:   "ssh",
-	Short: "DevOps Bootstrap is a CLI tool to bootstrap multiple DevOps environments of every day usage",
+	Short: "Connects to a node using kubectl node-shell",
+	Long:  "Requires ssh-node plugin to be installed. Connects to a node using kubectl node-shell.",
 	Run: func(cmd *cobra.Command, args []string) {
 		command := "kubectl get nodes | tail +2 | fzf"
 		subProcess := exec.Command("bash", "-c", command)

@@ -24,6 +24,10 @@ var (
 	moduleCmd = &cobra.Command{
 		Use:   "module",
 		Short: "Initializes a terraform module",
+		Long: "Creates a terraform module with the following structure:\n" +
+			"variables.tf\n" +
+			"outputs.tf\n" +
+			"requires.tf\n",
 		Run: func(cmd *cobra.Command, args []string) {
 			name := args[0]
 			err := createDir(name)

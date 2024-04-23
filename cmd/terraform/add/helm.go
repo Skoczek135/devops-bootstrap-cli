@@ -31,6 +31,7 @@ var (
 	helmCmd = &cobra.Command{
 		Use:   "helm",
 		Short: "Subcommand for adding helm releases",
+		Long:  "Adds helm_release resource to the terraform configuration. Along with that it copies the values.yaml file to the current directory of specified helm chart. Doesn't require repo of the chart to be added.",
 		Run: func(cmd *cobra.Command, args []string) {
 			tmpDir, _ = os.MkdirTemp(".", "helm-release")
 			cc := ChartConfig{
