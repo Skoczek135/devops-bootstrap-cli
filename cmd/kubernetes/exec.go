@@ -28,8 +28,9 @@ var execCmd = &cobra.Command{
 		}
 
 		podOutput := out.String()
-		namespace := strings.Split(podOutput, " ")[0]
-		podName := strings.Split(podOutput, " ")[1]
+		noSpacedOutput := strings.Fields(podOutput)
+		namespace := noSpacedOutput[0]
+		podName := noSpacedOutput[1]
 
 		command = fmt.Sprintf("kubectl -n %s exec -it %s bash", namespace, podName)
 		subProcess = exec.Command("bash", "-c", command)
