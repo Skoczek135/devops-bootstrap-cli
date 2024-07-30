@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"devops-bootstrap/cmd/dockerfile"
+	"devops-bootstrap/cmd/shell"
 )
 
 // Lint represents the linting command
@@ -16,5 +17,5 @@ var Lint = &cobra.Command{
 }
 
 func init() {
-	Lint.AddCommand(dockerfile.DockerfileLint)
+	Lint.AddCommand(dockerfile.DockerfileLint, shell.ShellLint)
 }
