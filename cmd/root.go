@@ -28,6 +28,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(terraform.TerraformCmd, kubernetes.KubernetesCmd)
+	rootCmd.AddCommand(terraform.TerraformCmd, kubernetes.KubernetesCmd, Lint)
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
