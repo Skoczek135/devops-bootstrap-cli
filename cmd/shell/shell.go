@@ -15,7 +15,7 @@ import (
 // ShellLint represents the shelllint command
 var ShellLint = &cobra.Command{
 	Use:     "shell",
-	Short:   "Subcommand for terraform scope",
+	Short:   "Subcommand for shell linting",
 	Aliases: []string{"sh"},
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) < 0 {

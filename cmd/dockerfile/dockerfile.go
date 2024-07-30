@@ -15,7 +15,7 @@ import (
 // DockerfileLint represents the dockerfilelint command
 var DockerfileLint = &cobra.Command{
 	Use:     "dockerfile",
-	Short:   "Subcommand for terraform scope",
+	Short:   "Subcommand for dockerfile linting",
 	Aliases: []string{"docker", "df"},
 	Run: func(cmd *cobra.Command, args []string) {
 		dockerFileName := "Dockerfile"

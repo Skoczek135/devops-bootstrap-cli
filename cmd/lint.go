@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"devops-bootstrap/cmd/dockerfile"
+	"devops-bootstrap/cmd/helm"
 	"devops-bootstrap/cmd/kubernetes"
 	"devops-bootstrap/cmd/shell"
 )
@@ -18,5 +19,5 @@ var Lint = &cobra.Command{
 }
 
 func init() {
-	Lint.AddCommand(dockerfile.DockerfileLint, shell.ShellLint, kubernetes.KubernetesLint)
+	Lint.AddCommand(dockerfile.DockerfileLint, shell.ShellLint, kubernetes.KubernetesLint, helm.HelmLint)
 }
