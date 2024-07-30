@@ -8,6 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"devops-bootstrap/cmd/aws"
 	"devops-bootstrap/cmd/kubernetes"
 	"devops-bootstrap/cmd/terraform"
 )
@@ -28,6 +29,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(terraform.TerraformCmd, kubernetes.KubernetesCmd, Lint)
+	rootCmd.AddCommand(terraform.TerraformCmd, kubernetes.KubernetesCmd, Lint, aws.CloudTrail)
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

@@ -30,7 +30,6 @@ var awsCmd = &cobra.Command{
 			fmt.Printf("%+v", file)
 			fmt.Println(err)
 		}
-
 	},
 }
 
