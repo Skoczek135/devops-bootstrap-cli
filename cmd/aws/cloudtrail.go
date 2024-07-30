@@ -29,7 +29,6 @@ var CloudTrail = &cobra.Command{
 		startTimeIso = parseTime(startTime)
 		endTimeIso = parseTime(endTime)
 		command := fmt.Sprintf("aws cloudtrail lookup-events --output text --region %s --start-time %s --end-time %s --query 'Events[].CloudTrailEvent' | jq -r ' . | select(.errorCode != null) | [.eventTime,.eventID,.eventName,.errorCode,.errorMessage] | @csv'", region, startTimeIso, endTimeIso)
-		fmt.Println(111, region)
 
 		process := exec.Command("bash", "-c", command)
 		process.Stdout = os.Stdout
